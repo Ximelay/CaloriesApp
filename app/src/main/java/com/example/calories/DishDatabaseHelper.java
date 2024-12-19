@@ -11,13 +11,14 @@ import java.util.List;
 
 public class DishDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "calorie_counter.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2; // Увеличили версию для добавления нового поля
 
     private static final String TABLE_DISHES = "dishes";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_CALORIES = "calories";
     private static final String COLUMN_CATEGORY = "category";
+    private static final String COLUMN_DESCRIPTION = "description";
 
     public DishDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -29,14 +30,16 @@ public class DishDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NAME + " TEXT, " +
                 COLUMN_CALORIES + " INTEGER, " +
-                COLUMN_CATEGORY + " TEXT)";
+                COLUMN_CATEGORY + " TEXT, " +
+                COLUMN_DESCRIPTION + " TEXT)";
         db.execSQL(createTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DISHES);
-        onCreate(db);
+        if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE " + TABLE_DISHES + " ADD COLUMN " + COLUMN_DESCRIPTION + " TEXT");
+        }
     }
 
     public void addDish(Dish dish) {
@@ -45,6 +48,7 @@ public class DishDatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_NAME, dish.getName());
         values.put(COLUMN_CALORIES, dish.getCalories());
         values.put(COLUMN_CATEGORY, dish.getCategory());
+        values.put(COLUMN_DESCRIPTION, dish.getDescription());
         db.insert(TABLE_DISHES, null, values);
         db.close();
     }
@@ -59,7 +63,8 @@ public class DishDatabaseHelper extends SQLiteOpenHelper {
                         cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)),
                         cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME)),
                         cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_CALORIES)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CATEGORY))
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CATEGORY)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DESCRIPTION))
                 ));
             } while (cursor.moveToNext());
         }
@@ -73,6 +78,7 @@ public class DishDatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_NAME, dish.getName());
         values.put(COLUMN_CALORIES, dish.getCalories());
         values.put(COLUMN_CATEGORY, dish.getCategory());
+        values.put(COLUMN_DESCRIPTION, dish.getDescription());
         db.update(TABLE_DISHES, values, COLUMN_ID + " = ?", new String[]{String.valueOf(dish.getId())});
         db.close();
     }

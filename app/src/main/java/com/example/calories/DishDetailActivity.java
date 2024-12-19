@@ -43,18 +43,20 @@ public class DishDetailActivity extends AppCompatActivity {
 
         EditText nameEditText = findViewById(R.id.dish_name);
         EditText caloriesEditText = findViewById(R.id.dish_calories);
+        EditText descriptionEditText = findViewById(R.id.dish_description); // Новое поле
         Spinner categorySpinner = findViewById(R.id.dish_category);
         Button updateButton = findViewById(R.id.update_button);
         Button deleteButton = findViewById(R.id.delete_button);
 
         nameEditText.setText(currentDish.getName());
         caloriesEditText.setText(String.valueOf(currentDish.getCalories()));
-        // Set category spinner selection based on currentDish.getCategory()
+        descriptionEditText.setText(currentDish.getDescription()); // Установить описание
 
         updateButton.setOnClickListener(v -> {
             currentDish.setName(nameEditText.getText().toString());
             currentDish.setCalories(Integer.parseInt(caloriesEditText.getText().toString()));
             currentDish.setCategory(categorySpinner.getSelectedItem().toString());
+            currentDish.setDescription(descriptionEditText.getText().toString()); // Обновить описание
 
             dbHelper.updateDish(currentDish);
             Toast.makeText(this, "Блюдо обновлено!", Toast.LENGTH_SHORT).show();

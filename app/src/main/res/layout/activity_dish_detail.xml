@@ -18,6 +18,13 @@
         android:hint="Калории"
         android:inputType="number" />
 
+    <EditText
+        android:id="@+id/dish_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Описание блюда"
+        android:inputType="text" />
+
     <Spinner
         android:id="@+id/dish_category"
         android:layout_width="match_parent"
