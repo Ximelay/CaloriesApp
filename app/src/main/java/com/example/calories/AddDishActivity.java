@@ -1,6 +1,7 @@
 package com.example.calories;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +10,8 @@ import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.List;
 
 
 public class AddDishActivity extends AppCompatActivity {
@@ -23,14 +26,14 @@ public class AddDishActivity extends AppCompatActivity {
 
         EditText nameEditText = findViewById(R.id.dish_name);
         EditText caloriesEditText = findViewById(R.id.dish_calories);
-        EditText descriptionEditText = findViewById(R.id.dish_description); // Новое поле
+        EditText descriptionEditText = findViewById(R.id.dish_description);
         Spinner categorySpinner = findViewById(R.id.dish_category);
         Button saveButton = findViewById(R.id.save_button);
 
         saveButton.setOnClickListener(v -> {
             String name = nameEditText.getText().toString();
             String calories = caloriesEditText.getText().toString();
-            String description = descriptionEditText.getText().toString(); // Получение описания
+            String description = descriptionEditText.getText().toString();
             String category = categorySpinner.getSelectedItem().toString();
 
             if (name.isEmpty() || calories.isEmpty() || description.isEmpty()) {
