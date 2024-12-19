@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/add_dish"
         android:title="Добавить блюдо"
         android:icon="@android:drawable/ic_menu_add"
-        android:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/filter_category"
+        android:title="Фильтр по категории"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/reset_filter"
+        android:title="Сбросить фильтр"
+        android:icon="@android:drawable/ic_menu_revert"
+        app:showAsAction="never" />
+
     <item
         android:id="@+id/export_json"
         android:title="Экспорт в JSON"
         android:icon="@android:drawable/ic_menu_save"
-        android:showAsAction="never" />
+        app:showAsAction="never" />
 </menu>
