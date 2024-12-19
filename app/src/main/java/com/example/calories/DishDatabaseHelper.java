@@ -5,13 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DishDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "calorie_counter.db";
-    private static final int DATABASE_VERSION = 2; // Увеличили версию для добавления нового поля
+    private static final int DATABASE_VERSION = 2;
 
     private static final String TABLE_DISHES = "dishes";
     private static final String COLUMN_ID = "id";

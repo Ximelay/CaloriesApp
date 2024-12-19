@@ -72,11 +72,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.export_json) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.add_dish) {// Открыть экран добавления блюда
+            startActivity(new Intent(this, AddDishActivity.class));
+            return true;
+        } else if (itemId == R.id.filter_category) {// Открыть фильтр по категориям
+            showCategoryFilterDialog();
+            return true;
+        } else if (itemId == R.id.export_json) {// Экспорт всех данных в JSON
             List<Dish> dishes = dbHelper.getAllDishes();
             File jsonFile = Utils.exportDishesToJson(this, dishes);
             if (jsonFile != null) {
-                Toast.makeText(this, "JSON сохранён: " + jsonFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Данные экспортированы: " + jsonFile.getPath(), Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "Ошибка экспорта данных", Toast.LENGTH_SHORT).show();
             }
@@ -84,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     // Метод для отображения диалога с выбором категории
     private void showCategoryFilterDialog() {
         String[] categories = getResources().getStringArray(R.array.categories);

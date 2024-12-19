@@ -33,18 +33,13 @@ public class Utils {
 
             // Преобразуем JSON-объект в строку
             String jsonString = jsonArray.toString(4); // 4 — для форматирования с отступами
-            Log.d(TAG, "Exported JSON:\n" + jsonString); // Вывод JSON в лог
+            Log.d(TAG, "Exported JSON:\n" + jsonString); // Вывод JSON в консоль
 
-            // Путь и имя файла
-            File file = new File(context.getFilesDir(), "export.json");
-
-            // Записываем данные в файл
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream);
+            // Записываем JSON в файл
+            File file = new File(context.getExternalFilesDir(null), "dishes.json");
+            FileWriter writer = new FileWriter(file);
             writer.write(jsonString);
             writer.close();
-
-            Log.d(TAG, "JSON записан в файл: " + file.getAbsolutePath());
 
             return file;
         } catch (Exception e) {
