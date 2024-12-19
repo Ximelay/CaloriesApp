@@ -23,20 +23,22 @@ public class AddDishActivity extends AppCompatActivity {
 
         EditText nameEditText = findViewById(R.id.dish_name);
         EditText caloriesEditText = findViewById(R.id.dish_calories);
+        EditText descriptionEditText = findViewById(R.id.dish_description); // Новое поле
         Spinner categorySpinner = findViewById(R.id.dish_category);
         Button saveButton = findViewById(R.id.save_button);
 
         saveButton.setOnClickListener(v -> {
             String name = nameEditText.getText().toString();
             String calories = caloriesEditText.getText().toString();
+            String description = descriptionEditText.getText().toString(); // Получение описания
             String category = categorySpinner.getSelectedItem().toString();
 
-            if (name.isEmpty() || calories.isEmpty()) {
+            if (name.isEmpty() || calories.isEmpty() || description.isEmpty()) {
                 Toast.makeText(this, "Заполните все поля!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            dbHelper.addDish(new Dish(0, name, Integer.parseInt(calories), category));
+            dbHelper.addDish(new Dish(0, name, Integer.parseInt(calories), category, description));
             Toast.makeText(this, "Блюдо добавлено!", Toast.LENGTH_SHORT).show();
             finish();
         });
