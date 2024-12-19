@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Calories</string>
+    <string name="calories_format">%d ккал</string>
+    <string-array name="categories">
+        <item>Завтрак</item>
+        <item>Обед</item>
+        <item>Ужин</item>
+    </string-array>
+</resources>
